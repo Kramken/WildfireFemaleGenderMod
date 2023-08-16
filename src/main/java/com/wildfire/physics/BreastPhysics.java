@@ -107,11 +107,11 @@ public class BreastPhysics {
 		if (!genderPlayer.getGender().canHaveBreasts()) {
 			targetBreastSize = 0;
 		} else {
-			// float tightness = MathHelper.clamp(armor.tightness(), 0, 1);
-			// if(genderPlayer.getArmorPhysicsOverride()) tightness = 0; //override resistance
+			float tightness = MathHelper.clamp(armor.tightness(), 0, 1);
+			if(genderPlayer.getArmorPhysicsOverride()) tightness = 0; //override resistance
 
-			// //Scale breast size by how tight the armor is, clamping at a max adjustment of shrinking by 0.15
-			// targetBreastSize *= 1 - 0.15F * tightness;
+			//Scale breast size by how tight the armor is, clamping at a max adjustment of shrinking by 0.15
+			targetBreastSize *= 1 - 0.15F * tightness;
 		}
 
 		if(breastSize < targetBreastSize) {
@@ -126,11 +126,11 @@ public class BreastPhysics {
 		//System.out.println(motion);
 
 		float bounceIntensity = (targetBreastSize * 3f) * genderPlayer.getBounceMultiplier();
-		// float resistance = MathHelper.clamp(armor.physicsResistance(), 0, 1);
-		// if (genderPlayer.getArmorPhysicsOverride()) resistance = 0; override resistance
+		float resistance = MathHelper.clamp(armor.physicsResistance(), 0, 1);
+		if(genderPlayer.getArmorPhysicsOverride()) resistance = 0; //override resistance
 
-		// //Adjust bounce intensity by physics resistance of the worn armor
-		// bounceIntensity *= 1 - resistance;
+		//Adjust bounce intensity by physics resistance of the worn armor
+		bounceIntensity *= 1 - resistance;
 
 		if(!genderPlayer.getBreasts().isUniboob()) {
 			bounceIntensity = bounceIntensity * WildfireHelper.randFloat(0.5f, 1.5f);
